@@ -9,6 +9,9 @@ define(["jquery"], function ($) {
 
     return function (config) {
         var self = {
+            identity: config.identity || function (model) {
+                return model.id;
+            },
             init: function () {
                 self.emptyRow = '<tr><td colspan="' + config.columns.length + '">&nbsp;</td></tr>';
                 self.modelToTr = new buckets.Dictionary();
@@ -50,18 +53,25 @@ define(["jquery"], function ($) {
                 }
             },
             addModel: function (model) {
+                var key = self.identity(model);
+                if (self.modelToTr.containsKey(key)) {
+                    return;
+                }
                 if (self.modelToTr.isEmpty()) {
                     self.$tbody.empty();
                 }
                 var tr = $('<tr></tr>');
                 self.$tbody.append(tr);
-                self.modelToTr.set(model, tr);
+                self.modelToTr.set(key, tr);
                 config.renderRow(tr, model);
             },
             removeModel: function (model) {
-                var tr = self.modelToTr.get(model);
-                self.modelToTr.remove(model);
+                var key = self.identity(model);
+                var tr = self.modelToTr.remove(key);
                 tr.remove();
+                if (self.modelToTr.isEmpty()) {
+                    self.$tbody.html(self.emptyRow);
+                }
             }
         };
 

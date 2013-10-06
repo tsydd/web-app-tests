@@ -27,9 +27,10 @@ require(["jquery", "subjects-form", "grid"], function ($, SubjectsForm, Director
         td.append(icon);
     }
 
+    var counter = 0;
     subjectsForm.onSubmit(function (model) {
         console.log(model);
-        model.id = 0;
+        model.id = counter++;
         directorsGrid.addModel(model);
     });
 });
