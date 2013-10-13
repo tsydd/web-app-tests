@@ -8,6 +8,8 @@ import service.converter.assembler.UserAssembler;
 import service.converter.disassembler.UserDisassembler;
 import service.dto.UserDto;
 
+import java.util.List;
+
 /**
  * @author Dmitry Tsydzik
  * @since Date: 13.10.13
@@ -27,5 +29,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto save(UserDto userDto) {
         return userDisassembler.convert(userRepository.save(userAssembler.convert(userDto)));
+    }
+
+    @Override
+    public List<UserDto> findAll() {
+        return userDisassembler.convertCollection(userRepository.findAll());
     }
 }

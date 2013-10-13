@@ -7,7 +7,7 @@ package service.converter
 abstract class AbstractConverter<FROM, TO> implements Converter<FROM, TO> {
 
     @Override
-    Collection<TO> convertCollection(Collection<FROM> fromCollection) {
+    List<TO> convertCollection(Collection<FROM> fromCollection) {
         fromCollection.collect { from -> convert(from) }
     }
 }

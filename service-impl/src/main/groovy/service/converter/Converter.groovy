@@ -8,5 +8,5 @@ public interface Converter<FROM, TO> {
 
     TO convert(FROM from)
 
-    Collection<TO> convertCollection(Collection<FROM> fromCollection)
+    List<TO> convertCollection(Collection<FROM> fromCollection)
 }

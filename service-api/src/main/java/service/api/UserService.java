@@ -2,6 +2,8 @@ package service.api;
 
 import service.dto.UserDto;
 
+import java.util.List;
+
 /**
  * @author Dmitry Tsydzik
  * @since Date: 13.10.13
@@ -9,4 +11,6 @@ import service.dto.UserDto;
 public interface UserService {
 
     UserDto save(UserDto user);
+
+    List<UserDto> findAll();
 }
