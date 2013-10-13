@@ -4,7 +4,6 @@ task wrapper(type: Wrapper) {
 
 ext {
     springVersion = '3.2.4.RELEASE'
-//    springVersion = '4.0.0.M3'
     springDataJpaVersion = '1.4.1.RELEASE'
     hibernateVersion = '4.2.6.Final'
     junitVersion = '4.11'
@@ -17,8 +16,6 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
 
-//    sourceCompatibility = JavaVersion.VERSION_1_8
-//    targetCompatibility = JavaVersion.VERSION_1_8
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 
@@ -61,7 +58,13 @@ project(':service-api') {
 }
 
 project(':service-impl') {
+    apply plugin: 'groovy'
+
+    sourceSets.main.java.srcDirs = []
+    sourceSets.main.groovy.srcDirs += ['src/main/java']
+
     dependencies {
+        compile localGroovy()
         compile project(':service-api')
         compile project(':dao-impl')
     }

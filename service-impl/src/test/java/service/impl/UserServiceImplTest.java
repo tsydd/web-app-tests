@@ -1,13 +1,13 @@
-package repo;
+package service.impl;
 
-import domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import service.api.UserService;
+import service.dto.UserDto;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -15,20 +15,21 @@ import static org.junit.Assert.assertNotNull;
  * @since Date: 13.10.13
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:hibernate.xml")
-public class UserRepositoryTest {
+@ContextConfiguration("classpath:service-impl.xml")
+public class UserServiceImplTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Test
     public void testCreate() {
-        User user = new User();
-        user.setEmail("email");
-        user.setPassword("password");
-        userRepository.save(user);
+        UserDto userDto = new UserDto();
+        userDto.setEmail("email");
+        userDto.setPassword("password");
 
-        assertNotNull(user.getId());
-        assertEquals(1, userRepository.count());
+        UserDto saved = userService.save(userDto);
+
+        assertNotNull(saved.getId());
     }
+
 }
