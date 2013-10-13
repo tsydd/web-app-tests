@@ -40,12 +40,18 @@ project(':common') {
 
 }
 
-project(':dao') {
+project(':dao-api') {
     dependencies {
-        compile "org.springframework:spring-context:$springVersion"
-        compile "org.springframework:spring-orm:$springVersion"
         compile "org.springframework.data:spring-data-jpa:$springDataJpaVersion"
         compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+    }
+}
+
+project(':dao-impl') {
+    dependencies {
+        compile project(':dao-api')
+        compile "org.springframework:spring-context:$springVersion"
+        compile "org.springframework:spring-orm:$springVersion"
         compile 'org.hsqldb:hsqldb:2.0.0'
     }
 }

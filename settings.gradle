@@ -1,4 +1,5 @@
 include ':common',
-        ':dao',
+        ':dao-api',
+        ':dao-impl',
         ':service',
         ':web'
