@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/login.css"/>
+    <script type="text/javascript" src="scripts/angular/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/login.js"></script>
+</head>
+<body ng-app>
+    <div class="container" ng-controller="Login">
+        <form ng-submit="doLogin()">
+            <h2>Login</h2>
+            {{data}}
+            {{status}}
+            {{message}}
+            <input type="text" class="form-control" placeholder="Email address" autofocus ng-model="login.userName"/>
+            <input type="password" class="form-control" placeholder="Password" ng-model="login.password"/>
+            <label class="checkbox">
+                <input type="checkbox" ng-model="login.remember"/>Remember me
+            </label>
+            <button type="submit" class="btn btn-lg btn-block btn-primary">Sign in</button>
+        </form>
+    </div>
+</body>
+</html>

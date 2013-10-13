@@ -17,12 +17,12 @@ public class DispatcherServletInitializerImpl
 
     protected WebApplicationContext createServletApplicationContext() {
         XmlWebApplicationContext ctx = new XmlWebApplicationContext();
-        ctx.setConfigLocation("WEB-INF/dispatcher-servlet.xml");
+        ctx.setConfigLocation("classpath:dispatcher-servlet.xml");
         return ctx;
     }
 
 //    @Override
     protected String[] getServletMappings() {
-        return new String[]{"/disp"};
+        return new String[]{"/disp/*"};
     }
 }
