@@ -56,8 +56,15 @@ project(':dao-impl') {
     }
 }
 
-project(':service') {
+project(':service-api') {
 
+}
+
+project(':service-impl') {
+    dependencies {
+        compile project(':service-api')
+        compile project(':dao-impl')
+    }
 }
 
 project(':web') {
