@@ -16,6 +16,8 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
 
+    version = '0.1-SNAPSHOT'
+
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 
@@ -30,11 +32,14 @@ allprojects {
         testCompile "junit:junit:$junitVersion"
         testCompile "org.springframework:spring-test:$springVersion"
         testCompile 'com.jayway.jsonpath:json-path:0.8.1'
+        testCompile 'org.mockito:mockito-all:1.8.4'
     }
 }
 
 project(':common') {
-
+    dependencies {
+        compile 'com.google.guava:guava:15.0'
+    }
 }
 
 project(':dao-api') {
@@ -46,6 +51,7 @@ project(':dao-api') {
 
 project(':dao-impl') {
     dependencies {
+        compile project(':common')
         compile project(':dao-api')
         compile "org.springframework:spring-context:$springVersion"
         compile "org.springframework:spring-orm:$springVersion"
