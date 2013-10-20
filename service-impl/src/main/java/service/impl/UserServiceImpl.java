@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto get(Long id) {
+        return userDisassembler.convert(userRepository.findOne(id));
+    }
+
+    @Override
     public List<UserDto> findAll() {
         return userDisassembler.convertCollection(userRepository.findAll());
     }
