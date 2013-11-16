@@ -15,6 +15,10 @@ app.config(['$routeProvider',
                 templateUrl: 'partials/user/edit.html',
                 controller: 'UserEditController'
             })
+            .when('/users/edit/', {
+                templateUrl: 'partials/user/edit.html',
+                controller: 'UserEditController'
+            })
             .when('/users/:id', {
                 templateUrl: 'partials/user/view.html',
                 controller: 'UserViewController'
