@@ -3,4 +3,6 @@ include ':common',
         ':dao-impl',
         ':service-api',
         ':service-impl',
+        ':ws-api',
+        ':ws-impl',
         ':web'

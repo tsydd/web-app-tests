@@ -1,6 +1,6 @@
 package service.api;
 
-import service.dto.UserDto;
+import domain.User;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface UserService {
 
-    UserDto save(UserDto user);
+    User save(User user);
 
-    UserDto get(Long id);
+    User get(Long id);
 
-    List<UserDto> findAll();
+    List<User> findAll();
 }

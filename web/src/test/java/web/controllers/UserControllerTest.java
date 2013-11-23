@@ -1,16 +1,18 @@
 package web.controllers;
 
-import com.google.common.collect.Lists;
-import org.junit.Before;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-import service.api.UserService;
-import service.dto.UserDto;
+import org.kubek2k.springockito.annotations.ReplaceWithMock;
+import org.kubek2k.springockito.annotations.SpringockitoAnnotatedContextLoader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import ws.api.UserWebService;
+import ws.model.user.UserSaveRequest;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -19,23 +21,36 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  * @author Dmitry Tsydzik
  * @since Date: 16.10.13
  */
-@RunWith(MockitoJUnitRunner.class)
-public class UserControllerTest {
+@ContextConfiguration(
+        loader = SpringockitoAnnotatedContextLoader.class,
+        classes = UserController.class
+)
+public class UserControllerTest extends AbstractJUnit4SpringContextTests {
 
+    @Autowired
     private UserController userController;
 
-    @Before
-    public void setUpController() {
-        userController = new UserController();
-        UserService userService = mock(UserService.class);
-        when(userService.findAll()).thenReturn(Lists.newArrayList(new UserDto()));
-        userController.userService = userService;
-    }
+    @SuppressWarnings({"SpringJavaAutowiringInspection", "UnusedDeclaration"})
+    @Autowired
+    @ReplaceWithMock
+    private UserWebService userService;
 
     @Test
     public void testUserList() throws Exception {
         standaloneSetup(userController).build()
                 .perform(get("/users"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testSaveUser() throws Exception {
+        UserSaveRequest data = new UserSaveRequest();
+        data.setEmail("email");
+        standaloneSetup(userController).build()
+                .perform(post("/users")
+                        .content(new ObjectMapper().writeValueAsString(data))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

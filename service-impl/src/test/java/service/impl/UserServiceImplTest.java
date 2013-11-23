@@ -1,12 +1,12 @@
 package service.impl;
 
+import domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import service.api.UserService;
-import service.dto.UserDto;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -23,13 +23,12 @@ public class UserServiceImplTest {
 
     @Test
     public void testCreate() {
-        UserDto userDto = new UserDto();
-        userDto.setEmail("email");
-        userDto.setPassword("password");
+        User user = new User();
+        user.setEmail("email");
+        user.setPassword("password");
 
-        UserDto saved = userService.save(userDto);
+        User saved = userService.save(user);
 
         assertNotNull(saved.getId());
     }
-
 }

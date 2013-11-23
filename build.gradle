@@ -9,9 +9,6 @@ ext {
     junitVersion = '4.11'
 }
 
-dependencies {
-}
-
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -29,15 +26,23 @@ allprojects {
     }
 
     dependencies {
+        compile 'org.slf4j:slf4j-log4j12:1.7.5'
         testCompile "junit:junit:$junitVersion"
         testCompile "org.springframework:spring-test:$springVersion"
         testCompile 'com.jayway.jsonpath:json-path:0.8.1'
         testCompile 'org.mockito:mockito-all:1.8.4'
+        testCompile 'org.kubek2k:springockito-annotations:1.0.9'
     }
 }
 
 project(':common') {
+    apply plugin: 'groovy'
+
+    sourceSets.main.java.srcDirs = []
+    sourceSets.main.groovy.srcDirs += ['src/main/java']
+
     dependencies {
+        compile localGroovy()
         compile 'com.google.guava:guava:15.0'
     }
 }
@@ -60,10 +65,25 @@ project(':dao-impl') {
 }
 
 project(':service-api') {
-
+    dependencies {
+        compile project(':dao-api')
+    }
 }
 
 project(':service-impl') {
+    apply plugin: 'groovy'
+
+    dependencies {
+        compile project(':common')
+        compile project(':service-api')
+        compile project(':dao-impl')
+    }
+}
+
+project(':ws-api') {
+}
+
+project(':ws-impl') {
     apply plugin: 'groovy'
 
     sourceSets.main.java.srcDirs = []
@@ -71,16 +91,24 @@ project(':service-impl') {
 
     dependencies {
         compile localGroovy()
-        compile project(':service-api')
-        compile project(':dao-impl')
+        compile project(':common')
+        compile project(':ws-api')
+        compile project(':service-impl')
     }
 }
 
 project(':web') {
     apply plugin: 'war'
+    apply plugin: 'groovy'
+
+    sourceSets.main.java.srcDirs = []
+    sourceSets.main.groovy.srcDirs += ['src/main/java']
 
     dependencies {
-        compile project(':service-impl')
+        compile localGroovy()
+        compile project(':common')
+//        compile project(':ws-api')
+        compile project(':ws-impl')
         compile "org.springframework:spring-webmvc:$springVersion"
         compile "javax.servlet:javax.servlet-api:3.0.1"
         compile "org.codehaus.jackson:jackson-mapper-asl:1.9.13"

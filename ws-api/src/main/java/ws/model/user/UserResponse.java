@@ -1,13 +1,30 @@
-package service.dto;
+package ws.model.user;
 
 /**
  * @author Dmitry Tsydzik
- * @since Date: 13.10.13
+ * @since Date: 23.11.13
  */
-public class UserDto extends LongIdDto {
-
+public class UserResponse {
+    private Long id;
+    private Long version;
     private String email;
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
     public String getEmail() {
         return email;

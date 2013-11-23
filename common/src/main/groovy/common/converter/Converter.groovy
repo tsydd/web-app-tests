@@ -1,4 +1,4 @@
-package service.converter
+package common.converter
 
 /**
  * @author Dmitry Tsydzik

@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import service.api.UserService;
-import service.dto.UserDto;
+import ws.api.UserWebService;
+import ws.model.user.UserResponse;
+import ws.model.user.UserSaveRequest;
 
 import java.util.List;
 
@@ -21,23 +22,23 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserWebService userWebService;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<UserDto> list() {
-        return userService.findAll();
+    public List<UserResponse> list() {
+        return userWebService.findAllUsers();
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public UserDto save(@RequestBody UserDto user) {
-        return userService.save(user);
+    public UserResponse save(@RequestBody UserSaveRequest user) {
+        return userWebService.saveUser(user);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public UserDto get(@PathVariable Long id) {
-        return userService.get(id);
+    public UserResponse get(@PathVariable Long id) {
+        return userWebService.getUser(id);
     }
 }

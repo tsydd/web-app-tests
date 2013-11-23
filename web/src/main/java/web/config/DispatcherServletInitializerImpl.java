@@ -21,7 +21,7 @@ public class DispatcherServletInitializerImpl
         return ctx;
     }
 
-//    @Override
+    @Override
     protected String[] getServletMappings() {
         return new String[]{"/disp/*"};
     }
