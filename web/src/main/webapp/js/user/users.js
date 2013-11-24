@@ -1,33 +1,38 @@
 define([
     'angular',
-    'angularRoute',
+    'angularUiRouter',
     'user/controllers/users-list',
     'user/controllers/users-view',
     'user/controllers/users-edit'
 ], function (angular) {
     angular.module('users', [
-            'ngRoute',
+            'ui.router',
             'users.list',
             'users.view',
             'users.edit'
         ])
-        .config(['$routeProvider',
-            function ($routeProvider) {
-                $routeProvider
-                    .when('/users', {
+        .config(['$stateProvider',
+            function ($stateProvider) {
+                $stateProvider
+                    .state('users', {
+                        abstract: true,
+                        url: '/users',
+                        template: '<ui-view/>'
+                    })
+                    .state('users.list', {
+                        url: '/list',
                         templateUrl: 'partials/user/list.html',
                         controller: 'UserListController'
                     })
-                    .when('/users/edit/:userId?', {
+                    .state('users.edit', {
+                        url: '/edit/:id',
                         templateUrl: 'partials/user/edit.html',
                         controller: 'UserEditController'
                     })
-                    .when('/users/:id', {
+                    .state('users.view', {
+                        url: '/view/:id',
                         templateUrl: 'partials/user/view.html',
                         controller: 'UserViewController'
-                    })
-                    .otherwise({
-                        redirectTo: '/users'
                     });
             }]);
 });

@@ -3,11 +3,10 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-        "angular": "~1.2.1",
-        "angular-route": "~1.2.1",
-        "angular-route-segment": "~1.2.0",
-        "angular-resource": "~1.2.1",
-        "bootstrap": "~3.0.2",
-        "requirejs": "~2.1.9"
+        "angular": "~1.2",
+        "angular-resource": "~1.2",
+        "angular-ui-router": "~0.2",
+        "bootstrap": "~3",
+        "requirejs": "~2"
     }
 }

@@ -1,16 +1,18 @@
 define([
     'angular',
+    'angularUiRouter',
     'user/users-service'
 ], function (angular) {
     angular.module('users.list', [
+            'ui.router',
             'users.service'
         ])
-        .controller('UserListController', ['$scope', '$location', 'User',
-            function ($scope, $location, User) {
+        .controller('UserListController', ['$scope', '$state', 'User',
+            function ($scope, $state, User) {
                 $scope.users = User.query();
 
                 $scope.create = function () {
-                    $location.path('/users/edit')
+                    $state.go('users.edit');
                 }
-            }])
+            }]);
 });

@@ -1,12 +1,12 @@
 require.config({
     paths: {
         angular: '../lib/angular/angular',
-        angularRoute: '../lib/angular-route/angular-route',
+        angularUiRouter: '../lib/angular-ui-router/release/angular-ui-router',
         angularResource: '../lib/angular-resource/angular-resource'
     },
     shim: {
         angular: {exports: 'angular'},
-        angularRoute: ['angular'],
+        angularUiRouter: ['angular'],
         angularResource: ['angular']
     },
     priority: [

@@ -1,19 +1,21 @@
 define([
     'angular',
+    'angularUiRouter',
     'user/users-service'
 ], function (angular) {
     angular.module('users.edit', [
+            'ui.router',
             'users.service'
         ])
-        .controller('UserEditController', ['$scope', '$location', '$routeParams', 'User',
-            function ($scope, $location, $routeParams, User) {
-                var id = $routeParams.userId;
-                $scope.user = id ? User.get({userId: $routeParams.userId}) : {};
+        .controller('UserEditController', ['$scope', '$state', '$stateParams', 'User',
+            function ($scope, $state, $stateParams, User) {
+                var id = $stateParams.id;
+                $scope.user = id ? User.get({userId: id}) : {};
 
                 $scope.save = function () {
-                    User.save($scope.user, function(user) {
-                        $location.path('/users/' + user.id);
+                    User.save($scope.user, function (user) {
+                        $state.go('users.view', { id: user.id });
                     });
                 }
-            }])
+            }]);
 });
