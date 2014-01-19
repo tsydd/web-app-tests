@@ -3,9 +3,9 @@ task wrapper(type: Wrapper) {
 }
 
 ext {
-    springVersion = '3.2.4.RELEASE'
+    springVersion = '4.0.0.RELEASE'
     springDataJpaVersion = '1.4.1.RELEASE'
-    hibernateVersion = '4.2.6.Final'
+    hibernateVersion = '4.3.0.Final'
     junitVersion = '4.11'
 }
 
@@ -15,8 +15,8 @@ allprojects {
 
     version = '0.1-SNAPSHOT'
 
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
         mavenCentral()
@@ -30,7 +30,7 @@ allprojects {
         testCompile "junit:junit:$junitVersion"
         testCompile "org.springframework:spring-test:$springVersion"
         testCompile 'com.jayway.jsonpath:json-path:0.8.1'
-        testCompile 'org.mockito:mockito-all:1.8.4'
+        testCompile 'org.mockito:mockito-all:1.9.0'
         testCompile 'org.kubek2k:springockito-annotations:1.0.9'
     }
 }
@@ -46,7 +46,9 @@ project(':common') {
 
 project(':dao-api') {
     dependencies {
-        compile "org.springframework.data:spring-data-jpa:$springDataJpaVersion"
+        compile("org.springframework.data:spring-data-jpa:$springDataJpaVersion") {
+            exclude group: 'org.springframework'
+        }
         compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
     }
 }

@@ -11,5 +11,5 @@ public interface Converter<FROM, TO> {
 
     TO convert(FROM from);
 
-    List<TO> convertCollection(Collection<FROM> fromCollection);
+    List<TO> convertCollection(Collection<? extends FROM> fromCollection);
 }

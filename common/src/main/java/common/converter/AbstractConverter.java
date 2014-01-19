@@ -6,8 +6,9 @@ package common.converter;
  */
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Dmitry Tsydzik
@@ -16,11 +17,9 @@ import java.util.List;
 public abstract class AbstractConverter<FROM, TO> implements Converter<FROM, TO> {
 
     @Override
-    public List<TO> convertCollection(Collection<FROM> fromCollection) {
-        List<TO> result = new LinkedList<>();
-        for (FROM from : fromCollection) {
-            result.add(convert(from));
-        }
-        return result;
+    public List<TO> convertCollection(Collection<? extends FROM> fromCollection) {
+        return fromCollection.stream()
+                .map((Function<FROM, TO>) this::convert)
+                .collect(Collectors.toList());
     }
 }
