@@ -3,13 +3,11 @@ package web.controllers;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -20,11 +18,10 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  */
 public class JsonControllerTest {
 
-    @Controller
+    @RestController
     public static class JsonController {
 
         @RequestMapping("/")
-        @ResponseBody
         public JsonObject someMethod(@RequestBody JsonObject value) {
             return value;
         }
